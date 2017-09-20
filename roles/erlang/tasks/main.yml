@@ -1,0 +1,21 @@
+---
+- name: Add GPG key for Erlang repository
+  become: true
+  apt_key:
+    url: https://packages.erlang-solutions.com/debian/erlang_solutions.asc
+    state: present
+
+- name: Add Erlang repository
+  become: true
+  apt_repository:
+    repo: "deb https://binaries.erlang-solutions.com/debian {{ ansible_distribution_release }} contrib"
+    state: present
+
+- name: Install Erlang
+  become: true
+  apt:
+    name: "erlang-base"
+    install_recommends: yes
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present

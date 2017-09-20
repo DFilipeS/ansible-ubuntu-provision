@@ -1,0 +1,8 @@
+---
+- name: Install Elixir
+  become: true
+  apt:
+    name: "elixir"
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present

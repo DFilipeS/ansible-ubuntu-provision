@@ -1,0 +1,8 @@
+---
+  - name: Download latest Atom deb package
+    get_url:
+      dest: "{{ playbook_dir }}"
+      url: "https://atom.io/download/deb"
+  - name: Install Atom
+    become: true
+    apt: deb="{{ playbook_dir }}/atom-amd64.deb"

@@ -1,0 +1,19 @@
+---
+  - name: Download latest Jetbrains Toolbox
+    get_url:
+      dest: "{{ playbook_dir }}"
+      url: "https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.4.2492.tar.gz"
+  - name: Extract jetbrains-toolbox-1.4.2492.tar.gz into {{ playbook_dir }}
+    unarchive:
+      src: jetbrains-toolbox-1.4.2492.tar.gz
+      dest: "{{ playbook_dir }}"
+  - name: Copy jetbrains-toolbox to /usr/local/bin
+    become: true
+    copy:
+      src: "{{ playbook_dir }}/jetbrains-toolbox-1.4.2492/jetbrains-toolbox"
+      dest: "/usr/local/bin"
+      owner: root
+      group: root
+      mode: u=rwx,g=rx,o=rx
+  - name: Remove jetbrains-toolbox-1.4.2492 folder
+    file: path="{{ playbook_dir }}/jetbrains-toolbox-1.4.2492" state=absent
