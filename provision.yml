@@ -6,3 +6,6 @@
     - elixir
     - emacs
     - jetbrains-toolbox
+    - zsh
+    - postgresql
+    - docker

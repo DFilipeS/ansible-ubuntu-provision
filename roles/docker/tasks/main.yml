@@ -1,0 +1,36 @@
+---
+  - name: Install Docker required packages
+    become: true
+    apt:
+      name: "{{item}}"
+      update_cache: yes
+      cache_valid_time: 3600
+      state: present
+    with_items:
+      - "apt-transport-https"
+      - "ca-certificates"
+      - "curl"
+      - "software-properties-common"
+  - name: Add GPG key for Docker repository
+    become: true
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+  - name: Add Docker repository
+    become: true
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+      state: present
+  - name: Install Docker
+    become: true
+    apt:
+      name: "docker-ce"
+      update_cache: yes
+      cache_valid_time: 3600
+      state: present
+  - name: Add my user as part of the Docker group
+    become: true
+    user:
+      name: daniel
+      groups: docker
+      append: yes
